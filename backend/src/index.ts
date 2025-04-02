@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import router from "./routes";
 
 dotenv.config();
 
@@ -8,8 +9,10 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
+app.use("/api", router);
+
 app.get("/", (_req, res) => {
-  res.send("API is running 🚀");
+  res.status(200).send("200");
 });
 
 app.listen(PORT, () => {
