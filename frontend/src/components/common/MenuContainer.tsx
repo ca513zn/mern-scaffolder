@@ -22,7 +22,13 @@ const MenuContainer = ({ menuItems }: MenuContainerProps) => {
 
   return (
     <>
-      <IconButton color="inherit" onClick={handleClick}>
+      <IconButton
+        color="inherit"
+        onClick={handleClick}
+        sx={{
+          marginLeft: "auto",
+        }}
+      >
         <MenuIcon />
       </IconButton>
       <Menu
