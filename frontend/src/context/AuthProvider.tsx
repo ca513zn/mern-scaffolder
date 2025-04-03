@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 import { AuthContextType, User } from "@/types/auth";
+import { refreshToken, logoutUser } from "@/services/apiClient";
 
 type Props = {
   children: React.ReactNode;
@@ -9,17 +10,39 @@ type Props = {
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const checkAuthStatus = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await refreshToken();
+      setIsAuthenticated(!!res.data.user);
+      if (res.data.user) {
+        setUser(res.data.user);
+      }
+    } catch {
+      setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, [checkAuthStatus]);
 
   const login = (userData: User) => {
-    setUser(userData);
     setIsAuthenticated(true);
-    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
   };
 
-  const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    localStorage.removeItem("user");
+  const logout = async () => {
+    try {
+      await logoutUser();
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error("❌ Logout failed:", error);
+    }
   };
 
   const contextValue: AuthContextType = {
@@ -27,6 +50,7 @@ const AuthProvider = ({ children }: Props) => {
     user,
     login,
     logout,
+    loading,
   };
 
   return (

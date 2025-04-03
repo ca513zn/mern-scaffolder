@@ -1,8 +1,17 @@
+enum UserRole {
+  user = "user",
+  admin = "admin",
+}
+
 export type User = {
-  id: string;
+  _id: string;
   name: string;
   email: string;
-  role?: "admin" | "user";
+  createdAt: Date;
+  updatedAt: Date;
+  role?: UserRole;
+  picture?: string;
+  googleId?: string;
 };
 
 export interface AuthContextType {
@@ -10,4 +19,5 @@ export interface AuthContextType {
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
+  loading: boolean;
 }

@@ -1,15 +1,12 @@
 import { Router } from "express";
-import { authenticate } from "@/middleware/auth.middleware";
+import { authenticateUser } from "@/middleware/auth.middleware";
+import { logout } from "@/controllers/auth/logout.controller";
+import { getAuthenticatedUser } from "@/controllers/auth/me.controller";
 
 const router = Router();
 
-router.use(authenticate);
+router.get("/auth/me", authenticateUser, getAuthenticatedUser);
 
-router.get("/profile", (req, res) => {
-  res.json({
-    message: "Private route: Authenticated user 🎯",
-    userId: req.user?.id,
-  });
-});
+router.post("/auth/logout", logout);
 
 export default router;

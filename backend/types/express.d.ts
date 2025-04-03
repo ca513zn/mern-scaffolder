@@ -8,3 +8,7 @@ declare module "express-serve-static-core" {
     };
   }
 }
+
+export interface AuthenticatedRequest extends Request {
+  user?: IUser; // `user` will be populated by auth middleware
+}
