@@ -14,7 +14,11 @@ import {
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { Avatar, Typography } from "@mui/material";
 import ExtensionIcon from "@mui/icons-material/Extension";
+import Slide from "@mui/material/Slide";
+import { useScrollDirection } from "@/hooks/useScrollDirection"; // path as needed
+
 const AppHeader = () => {
+  const scrollDirection = useScrollDirection();
   const { logout, isAuthenticated, user } = useAuth();
   const { i18n, t } = useTranslation();
   const { mode, toggleTheme } = useThemeContext();
@@ -77,12 +81,14 @@ const AppHeader = () => {
   ];
 
   return (
-    <AppBar position="static" sx={{ mb: 2 }}>
-      <Toolbar sx={{ gap: 2 }}>
-        <Typography>Scaffolder</Typography>
-        <MenuContainer menuItems={menuItems} id="nav-menu" />
-      </Toolbar>
-    </AppBar>
+    <Slide appear={false} direction="down" in={scrollDirection === "up"}>
+      <AppBar position="fixed">
+        <Toolbar sx={{ gap: 2 }}>
+          <Typography>Scaffolder</Typography>
+          <MenuContainer menuItems={menuItems} id="nav-menu" />
+        </Toolbar>
+      </AppBar>
+    </Slide>
   );
 };
 

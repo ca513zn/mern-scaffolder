@@ -6,7 +6,18 @@ interface PageWrapperProps extends ContainerProps {
 }
 
 const PageWrapper: FC<PageWrapperProps> = ({ children, ...rest }) => {
-  return <Container {...rest}>{children}</Container>;
+  return (
+    <Container
+      {...rest}
+      sx={{
+        mb: 8,
+        mt: 2,
+        ...rest.sx,
+      }}
+    >
+      {children}
+    </Container>
+  );
 };
 
 export default PageWrapper;

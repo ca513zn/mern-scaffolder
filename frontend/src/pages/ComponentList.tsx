@@ -1,9 +1,11 @@
+import { useState } from "react";
 import PageWrapper from "@/components/common/PageWrapper";
 import PageBody from "@/components/font/PageBody";
 import PageCaption from "@/components/font/PageCaption";
 import PageSubheader from "@/components/font/PageSubheader";
 import PageTitle from "@/components/font/PageTitle";
-import { Divider, Typography } from "@mui/material";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import GridContainer from "@/components/layout/GridContainer";
 import AppButton from "@/components/common/AppButton";
 import AppDialog from "@/components/common/AppDialog";
@@ -11,6 +13,83 @@ import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AlarmIcon from "@mui/icons-material/Alarm";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AppSnackBar, {
+  AppSnackBarSeverity,
+} from "@/components/common/AppSnackBar";
+
+const SnackBarDemo = () => {
+  const [snack, setSnack] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  } as {
+    open: boolean;
+    message: string;
+    severity: AppSnackBarSeverity;
+  });
+
+  const showSnack = (message: string, severity: AppSnackBarSeverity) => {
+    setSnack({ open: true, message, severity });
+  };
+
+  const mainContent = [
+    {
+      component: GridContainer,
+      props: {
+        spacing: 2,
+        components: [
+          {
+            component: PageSubheader,
+            props: { children: "SnackBar Demo" },
+          },
+          { component: Divider },
+          {
+            component: Typography,
+            props: {
+              variant: "subtitle2",
+              children: "Click a button to show a SnackBar",
+            },
+          },
+          {
+            component: AppButton,
+            props: {
+              onClick: () => showSnack("All good!", "success"),
+              children: "Show Success",
+            },
+          },
+          {
+            component: AppButton,
+            props: {
+              onClick: () => showSnack("Oops!", "error"),
+              color: "error",
+              children: "Show Error",
+            },
+          },
+          {
+            component: AppButton,
+            props: {
+              onClick: () => showSnack("Careful!", "warning"),
+              color: "warning",
+              children: "Show Warning",
+            },
+          },
+        ],
+      },
+    },
+  ];
+
+  return (
+    <>
+      <GridContainer components={mainContent} />
+      <AppSnackBar
+        open={snack.open}
+        message={snack.message}
+        severity={snack.severity}
+        onClose={() => setSnack({ ...snack, open: false })}
+      />
+    </>
+  );
+};
 
 const buttonVariants = [
   {
@@ -211,6 +290,19 @@ const ComponentList = () => {
               size: 12,
             },
           ]),
+        ],
+      },
+    },
+    {
+      component: GridContainer,
+      props: {
+        spacing: 2,
+        components: [
+          {
+            component: SnackBarDemo,
+            props: {},
+            size: 12,
+          },
         ],
       },
     },
