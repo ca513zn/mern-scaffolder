@@ -4,15 +4,13 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 import MenuContainer, { MenuItems } from "@/components/common/MenuContainer";
 import { useTranslation } from "react-i18next";
-import {
-  Brightness4,
-  Brightness7,
-  Home,
-  Language,
-  Logout,
-} from "@mui/icons-material";
+import Brightness7 from "@mui/icons-material/Brightness7";
+import Brightness4 from "@mui/icons-material/Brightness4";
+import Home from "@mui/icons-material/Home";
+import Language from "@mui/icons-material/Language";
+import Logout from "@mui/icons-material/Logout";
 import { useThemeContext } from "@/hooks/useThemeContext";
-import { Avatar, Typography } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import Slide from "@mui/material/Slide";
 import { useScrollDirection } from "@/hooks/useScrollDirection"; // path as needed
