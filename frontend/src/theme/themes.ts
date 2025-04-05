@@ -1,6 +1,10 @@
 import { indigo } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
+export const typography = {
+  fontFamily: `"Space Grotesk", sans-serif`,
+};
+
 export const lightTheme = createTheme({
   palette: {
     mode: "light",
@@ -10,6 +14,9 @@ export const lightTheme = createTheme({
     background: {
       default: "#f5f5f5",
     },
+  },
+  typography: {
+    ...typography,
   },
 });
 
@@ -22,5 +29,8 @@ export const darkTheme = createTheme({
     background: {
       default: "#121212",
     },
+  },
+  typography: {
+    ...typography,
   },
 });

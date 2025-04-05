@@ -12,8 +12,8 @@ import {
   Logout,
 } from "@mui/icons-material";
 import { useThemeContext } from "@/hooks/useThemeContext";
-import { Avatar } from "@mui/material";
-
+import { Avatar, Typography } from "@mui/material";
+import ExtensionIcon from "@mui/icons-material/Extension";
 const AppHeader = () => {
   const { logout, isAuthenticated, user } = useAuth();
   const { i18n, t } = useTranslation();
@@ -50,6 +50,11 @@ const AppHeader = () => {
       onClick: () => navigate("/home"),
     },
     {
+      label: t("components"),
+      onClick: () => navigate("/component-list"),
+      icon: <ExtensionIcon />,
+    },
+    {
       label: i18n.language === "en" ? "Español" : "English",
       onClick: toggleLanguage,
       icon: <Language />,
@@ -59,6 +64,10 @@ const AppHeader = () => {
       label: mode === "light" ? "Dark Mode" : "Light Mode",
       icon: mode === "light" ? <Brightness4 /> : <Brightness7 />,
       onClick: toggleTheme,
+      cancelClose: true,
+    },
+    {
+      isDivider: true,
     },
     {
       label: t("logout"),
@@ -70,6 +79,7 @@ const AppHeader = () => {
   return (
     <AppBar position="static" sx={{ mb: 2 }}>
       <Toolbar sx={{ gap: 2 }}>
+        <Typography>Scaffolder</Typography>
         <MenuContainer menuItems={menuItems} id="nav-menu" />
       </Toolbar>
     </AppBar>

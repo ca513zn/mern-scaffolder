@@ -3,5 +3,6 @@
   "login": "Iniciar sesión",
   "logout": "Cerrar sesión",
   "home": "Inicio",
-  "profile": "Perfil"
+  "profile": "Perfil",
+  "components": "Componentes"
 }

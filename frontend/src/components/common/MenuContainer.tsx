@@ -4,12 +4,14 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Stack from "@mui/material/Stack";
+import { Divider } from "@mui/material";
 
 export type MenuItems = {
-  label: string;
-  onClick: () => void;
-  icon: ReactNode;
+  label?: string;
+  onClick?: () => void;
+  icon?: ReactNode;
   cancelClose?: boolean;
+  isDivider?: boolean;
 };
 
 type MenuContainerProps = {
@@ -62,18 +64,25 @@ const MenuContainer = ({
           ...menuProps?.sx,
         }}
       >
-        {menuItems.map((item, index) => (
-          <MenuItem
-            key={index}
-            onClick={() => {
-              item.onClick();
-              if (!item.cancelClose) handleClose();
-            }}
-          >
-            {item.icon && <Stack sx={{ marginRight: 2 }}>{item.icon}</Stack>}
-            {item.label}
-          </MenuItem>
-        ))}
+        {menuItems.map((item, index) => {
+          if (item.isDivider) {
+            return <Divider />;
+          }
+          return (
+            <MenuItem
+              key={index}
+              onClick={() => {
+                if (item.onClick) {
+                  item.onClick();
+                }
+                if (!item.cancelClose) handleClose();
+              }}
+            >
+              {item.icon && <Stack sx={{ marginRight: 2 }}>{item.icon}</Stack>}
+              {item.label}
+            </MenuItem>
+          );
+        })}
       </Menu>
     </>
   );
