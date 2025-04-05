@@ -205,7 +205,7 @@ const RadioGroupDemo = () => {
   const mainContent = [
     {
       component: AppTypography,
-      props: { children: "Radio Group Demo", variant: "h5" },
+      props: { children: "AppRadioGroup Demo", variant: "h5" },
     },
     { component: Divider },
     {
@@ -277,7 +277,7 @@ const SnackBarDemo = () => {
         components: [
           {
             component: AppTypography,
-            props: { children: "SnackBar Demo", variant: "h5" },
+            props: { children: "AppSnackBar Demo", variant: "h5" },
           },
           { component: Divider },
           {
