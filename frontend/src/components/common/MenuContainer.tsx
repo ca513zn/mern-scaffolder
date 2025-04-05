@@ -66,7 +66,7 @@ const MenuContainer = ({
       >
         {menuItems.map((item, index) => {
           if (item.isDivider) {
-            return <Divider />;
+            return <Divider key={index} />;
           }
           return (
             <MenuItem
