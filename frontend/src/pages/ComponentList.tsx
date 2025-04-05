@@ -1,9 +1,5 @@
 import { useState } from "react";
 import PageWrapper from "@/components/common/PageWrapper";
-import PageBody from "@/components/font/PageBody";
-import PageCaption from "@/components/font/PageCaption";
-import PageSubheader from "@/components/font/PageSubheader";
-import PageTitle from "@/components/font/PageTitle";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import GridContainer from "@/components/layout/GridContainer";
@@ -17,6 +13,213 @@ import AppSnackBar, {
   AppSnackBarSeverity,
 } from "@/components/common/AppSnackBar";
 import AppRadioGroup from "@/components/common/AppRadioGroup";
+import AppAvatar from "@/components/common/AppAvatar";
+import { IconButton } from "@mui/material";
+import AppCard from "@/components/common/AppCard";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AppAlert from "@/components/common/AppAlert";
+import AppTypography from "@/components/common/AppTypography";
+import { Share } from "@mui/icons-material";
+
+const alertVariants = [
+  {
+    severity: "success",
+    message: "This is a success alert — well done!",
+  },
+  {
+    severity: "info",
+    message: "This is an info alert — for your information.",
+  },
+  {
+    severity: "warning",
+    message: "This is a warning alert — be careful.",
+  },
+  {
+    severity: "error",
+    message: "This is an error alert — something went wrong.",
+  },
+];
+
+const AlertDemo = () => {
+  const mainContent = [
+    {
+      component: AppTypography,
+      props: { children: "AppAlert Variants", variant: "h5" },
+    },
+    { component: Divider },
+    ...alertVariants.map((alert, index) => ({
+      component: AppAlert,
+      props: {
+        severity: alert.severity,
+        message: alert.message,
+        variant: "filled",
+      },
+      size: 12,
+      key: index,
+    })),
+  ];
+
+  return <GridContainer components={mainContent} spacing={2} />;
+};
+
+const CardDemo = () => {
+  const mainContent = [
+    {
+      component: AppTypography,
+      props: { children: "AppCard Demo", variant: "h5" },
+    },
+    { component: Divider },
+    // Basic card
+    {
+      component: AppCard,
+      props: {
+        title: "Simple Card",
+        subheader: "This is a subtitle",
+        content: (
+          <Typography variant="body2" color="text.secondary">
+            This is a simple card with a title and content.
+          </Typography>
+        ),
+      },
+    },
+    // Card with avatar + action icon
+    {
+      component: AppCard,
+      props: {
+        title: "User Profile",
+        subheader: "Online",
+        avatar: <AppAvatar size="small" src="/avatars/avatar1.jpg" />,
+        action: (
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        ),
+        content: (
+          <Typography variant="body2" color="text.secondary">
+            This card uses avatar + action in the header.
+          </Typography>
+        ),
+      },
+    },
+
+    // Card with media
+    {
+      component: AppCard,
+      props: {
+        media: {
+          image:
+            "https://images.pexels.com/photos/2325447/pexels-photo-2325447.jpeg", // Replace with your actual path
+          alt: "Nature",
+        },
+        content: (
+          <>
+            <Typography variant="h6">Card with Image</Typography>
+            <Typography variant="body2" color="text.secondary">
+              This card includes an image and some content.
+            </Typography>
+          </>
+        ),
+        actions: (
+          <>
+            <AppButton
+              fullWidth
+              size="small"
+              variant="text"
+              startIcon={<Share />}
+            >
+              Share
+            </AppButton>
+            <AppButton fullWidth size="small" variant="text">
+              Learn More
+            </AppButton>
+          </>
+        ),
+      },
+    },
+
+    // Card with buttons in actions
+    {
+      component: AppCard,
+      props: {
+        title: "Confirm Action",
+        content: (
+          <Typography variant="body2" color="text.secondary">
+            Are you sure you want to proceed?
+          </Typography>
+        ),
+        actions: (
+          <>
+            <AppButton fullWidth size="small" variant="text">
+              Cancel
+            </AppButton>
+            <AppButton fullWidth size="small" color="success">
+              Confirm
+            </AppButton>
+          </>
+        ),
+      },
+    },
+  ];
+
+  return <GridContainer components={mainContent} spacing={2} />;
+};
+
+const AvatarDemo = () => {
+  const mainContent = [
+    {
+      component: AppTypography,
+      props: { children: "AppAvatar Variants", variant: "h5" },
+    },
+    { component: Divider },
+    {
+      component: Typography,
+      props: {
+        variant: "subtitle2",
+        children: "Small Avatar",
+      },
+    },
+    {
+      component: AppAvatar,
+      props: {
+        size: "small",
+        src: "/avatars/avatar1.jpg",
+        alt: "Small Avatar",
+      },
+    },
+    {
+      component: Typography,
+      props: {
+        variant: "subtitle2",
+        children: "Medium Avatar",
+      },
+    },
+    {
+      component: AppAvatar,
+      props: {
+        size: "medium",
+        src: "/avatars/avatar2.jpg",
+        alt: "Medium Avatar",
+      },
+    },
+    {
+      component: Typography,
+      props: {
+        variant: "subtitle2",
+        children: "Large Avatar",
+      },
+    },
+    {
+      component: AppAvatar,
+      props: {
+        size: "large",
+        src: "/avatars/avatar3.jpg",
+        alt: "Large Avatar",
+      },
+    },
+  ];
+
+  return <GridContainer components={mainContent} spacing={2} />;
+};
 
 const RadioGroupDemo = () => {
   const [fruit, setFruit] = useState("Banana");
@@ -24,8 +227,8 @@ const RadioGroupDemo = () => {
 
   const mainContent = [
     {
-      component: PageSubheader,
-      props: { children: "Radio Group Demo" },
+      component: AppTypography,
+      props: { children: "Radio Group Demo", variant: "h5" },
     },
     { component: Divider },
     {
@@ -96,8 +299,8 @@ const SnackBarDemo = () => {
         spacing: 2,
         components: [
           {
-            component: PageSubheader,
-            props: { children: "SnackBar Demo" },
+            component: AppTypography,
+            props: { children: "SnackBar Demo", variant: "h5" },
           },
           { component: Divider },
           {
@@ -109,6 +312,7 @@ const SnackBarDemo = () => {
           },
           {
             component: AppButton,
+            size: 4,
             props: {
               onClick: () => showSnack("All good!", "success"),
               children: "Show Success",
@@ -116,6 +320,7 @@ const SnackBarDemo = () => {
           },
           {
             component: AppButton,
+            size: 4,
             props: {
               onClick: () => showSnack("Oops!", "error"),
               color: "error",
@@ -124,6 +329,7 @@ const SnackBarDemo = () => {
           },
           {
             component: AppButton,
+            size: 4,
             props: {
               onClick: () => showSnack("Careful!", "warning"),
               color: "warning",
@@ -196,6 +402,7 @@ const buttonVariants = [
       color: "primary",
       icon: <SaveIcon />,
       children: "Save",
+      code: `<AppButton variant="contained" color="success" icon={<SaveIcon />}>Save</AppButton>`,
     },
   },
   {
@@ -251,6 +458,30 @@ const dialogVariants = [
     },
   },
   {
+    label: "Icon Button Dialog",
+    props: {
+      title: "Confirm Action",
+      content: "Are you sure you want to perform this action?",
+      actions: (close: () => void) => (
+        <>
+          <AppButton onClick={close}>Cancel</AppButton>
+          <AppButton
+            color="success"
+            onClick={() => {
+              console.log("Confirmed");
+              close();
+            }}
+          >
+            Confirm
+          </AppButton>
+        </>
+      ),
+      trigger: (
+        <AppButton isIconButton icon={<AlarmIcon />} aria-label="Alarm" />
+      ),
+    },
+  },
+  {
     label: "Text Trigger",
     props: {
       title: "Information",
@@ -280,22 +511,38 @@ const ComponentList = () => {
       props: { variant: "h4", children: "Components" },
     },
     {
-      component: PageBody,
+      component: AppTypography,
       props: {
         children:
           "This page lists all the components available in the application. You can use these components to build your own pages and customize the look and feel of the application.",
+        variant: "body1",
       },
     },
     {
       component: GridContainer,
       props: {
         components: [
-          { component: PageSubheader, props: { children: "Typography" } },
+          {
+            component: AppTypography,
+            props: { children: "Typography", variant: "h5" },
+          },
           { component: Divider },
-          { component: PageTitle, props: { children: "Page Title" } },
-          { component: PageSubheader, props: { children: "Page Subheader" } },
-          { component: PageBody, props: { children: "Page Body" } },
-          { component: PageCaption, props: { children: "Page Caption" } },
+          {
+            component: AppTypography,
+            props: { children: "Page Title", variant: "h4" },
+          },
+          {
+            component: AppTypography,
+            props: { children: "Page Subheader", variant: "h5" },
+          },
+          {
+            component: AppTypography,
+            props: { children: "Page Body", variant: "body1" },
+          },
+          {
+            component: AppTypography,
+            props: { children: "Page Caption", variant: "caption" },
+          },
         ],
         spacing: 2,
       },
@@ -306,20 +553,20 @@ const ComponentList = () => {
         spacing: 2,
         components: [
           {
-            component: PageSubheader,
-            props: { children: "AppButton Variants" },
+            component: AppTypography,
+            props: { children: "AppButton Variants", variant: "h5" },
           },
           { component: Divider },
           ...buttonVariants.flatMap(({ label, props }) => [
             {
               component: Typography,
               props: { variant: "subtitle2", children: label },
-              size: 12,
+              size: 6,
             },
             {
               component: AppButton,
               props,
-              size: 12,
+              size: 6,
             },
           ]),
         ],
@@ -331,20 +578,20 @@ const ComponentList = () => {
         spacing: 2,
         components: [
           {
-            component: PageSubheader,
-            props: { children: "AppDialog Variants" },
+            component: AppTypography,
+            props: { children: "AppDialog Variants", variant: "h5" },
           },
           { component: Divider },
           ...dialogVariants.flatMap(({ label, props }) => [
             {
               component: Typography,
               props: { variant: "subtitle2", children: label },
-              size: 12,
+              size: 6,
             },
             {
               component: AppDialog,
               props,
-              size: 12,
+              size: 6,
             },
           ]),
         ],
@@ -370,6 +617,45 @@ const ComponentList = () => {
         components: [
           {
             component: RadioGroupDemo,
+            props: {},
+            size: 12,
+          },
+        ],
+      },
+    },
+    {
+      component: GridContainer,
+      props: {
+        spacing: 2,
+        components: [
+          {
+            component: AvatarDemo,
+            props: {},
+            size: 12,
+          },
+        ],
+      },
+    },
+    {
+      component: GridContainer,
+      props: {
+        spacing: 2,
+        components: [
+          {
+            component: CardDemo,
+            props: {},
+            size: 12,
+          },
+        ],
+      },
+    },
+    {
+      component: GridContainer,
+      props: {
+        spacing: 2,
+        components: [
+          {
+            component: AlertDemo,
             props: {},
             size: 12,
           },

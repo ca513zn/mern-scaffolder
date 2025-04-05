@@ -4,5 +4,7 @@
   "logout": "Cerrar sesión",
   "home": "Inicio",
   "profile": "Perfil",
-  "components": "Componentes"
+  "components": "Componentes",
+  "light_theme": "Tema claro",
+  "dark_theme": "Tema oscuro"
 }

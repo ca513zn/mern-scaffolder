@@ -4,7 +4,15 @@ import { ComponentPropsWithoutRef, ElementType } from "react";
 type GridComponentConfig<T extends ElementType> = {
   component: T;
   props?: ComponentPropsWithoutRef<T>;
-  size?: number;
+  size?:
+    | number
+    | {
+        xs?: number;
+        sm?: number;
+        md?: number;
+        lg?: number;
+        xl?: number;
+      };
 };
 
 type GridContainerProps = {

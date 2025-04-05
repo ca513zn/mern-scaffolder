@@ -59,19 +59,20 @@ const AppHeader = () => {
       icon: <ExtensionIcon />,
     },
     {
-      label: i18n.language === "en" ? "Español" : "English",
-      onClick: toggleLanguage,
-      icon: <Language />,
-      cancelClose: true,
+      isDivider: true,
     },
     {
-      label: mode === "light" ? "Dark Mode" : "Light Mode",
+      label: mode === "light" ? t("dark_theme") : t("light_theme"),
       icon: mode === "light" ? <Brightness4 /> : <Brightness7 />,
       onClick: toggleTheme,
       cancelClose: true,
     },
+
     {
-      isDivider: true,
+      label: i18n.language === "en" ? "Español" : "English",
+      onClick: toggleLanguage,
+      icon: <Language />,
+      cancelClose: true,
     },
     {
       label: t("logout"),

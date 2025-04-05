@@ -4,5 +4,7 @@
   "logout": "Logout",
   "home": "Home",
   "profile": "Profile",
-  "components": "Components"
+  "components": "Components",
+  "light_theme": "Light Theme",
+  "dark_theme": "Dark Theme"
 }

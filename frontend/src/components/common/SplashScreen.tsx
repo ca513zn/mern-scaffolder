@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const SplashScreen = () => {
   return (
@@ -11,7 +11,7 @@ const SplashScreen = () => {
         alignItems: "center",
       }}
     >
-      <LinearProgress
+      <CircularProgress
         sx={{
           width: "100%",
         }}
