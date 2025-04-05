@@ -136,29 +136,6 @@ const CardDemo = () => {
         ),
       },
     },
-
-    // Card with buttons in actions
-    {
-      component: AppCard,
-      props: {
-        title: "Confirm Action",
-        content: (
-          <Typography variant="body2" color="text.secondary">
-            Are you sure you want to proceed?
-          </Typography>
-        ),
-        actions: (
-          <>
-            <AppButton fullWidth size="small" variant="text">
-              Cancel
-            </AppButton>
-            <AppButton fullWidth size="small" color="success">
-              Confirm
-            </AppButton>
-          </>
-        ),
-      },
-    },
   ];
 
   return <GridContainer components={mainContent} spacing={2} />;
