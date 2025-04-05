@@ -11,6 +11,7 @@ const AppContainer = ({ children }: AppContainerProps) => {
       sx={{
         height: "100%",
         minHeight: "100vh",
+        pb: 2,
       }}
     >
       {children}

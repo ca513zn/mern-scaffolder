@@ -1,14 +1,28 @@
-import { useState, MouseEvent } from "react";
-import Menu from "@mui/material/Menu";
+import { useState, MouseEvent, ReactNode } from "react";
+import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Stack from "@mui/material/Stack";
 
-type MenuContainerProps = {
-  menuItems: { label: string; onClick: () => void }[];
+export type MenuItems = {
+  label: string;
+  onClick: () => void;
+  icon: ReactNode;
+  cancelClose?: boolean;
 };
 
-const MenuContainer = ({ menuItems }: MenuContainerProps) => {
+type MenuContainerProps = {
+  menuItems: MenuItems[];
+  id: string;
+  menuProps?: MenuProps;
+};
+
+const MenuContainer = ({
+  menuItems,
+  id = "menu",
+  menuProps,
+}: MenuContainerProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -32,19 +46,31 @@ const MenuContainer = ({ menuItems }: MenuContainerProps) => {
         <MenuIcon />
       </IconButton>
       <Menu
-        id="menu-container"
+        id={id}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        sx={{
+          "& .MuiPaper-root": {
+            width: "100%",
+            maxWidth: 300,
+            backgroundColor: "background.dark",
+            paddingX: 1,
+            "--Paper-overlay": "none",
+            transform: "translateX(-16px) !important",
+          },
+          ...menuProps?.sx,
+        }}
       >
         {menuItems.map((item, index) => (
           <MenuItem
             key={index}
             onClick={() => {
               item.onClick();
-              handleClose();
+              if (!item.cancelClose) handleClose();
             }}
           >
+            {item.icon && <Stack sx={{ marginRight: 2 }}>{item.icon}</Stack>}
             {item.label}
           </MenuItem>
         ))}
