@@ -2,6 +2,8 @@ import { Route, Navigate, Routes } from "react-router-dom";
 import Login from "@/pages/Login";
 import Home from "@/pages/Home";
 import useAuth from "@/hooks/useAuth";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -13,7 +15,19 @@ const AppRoutes = () => {
       />
       <Route
         path="/home"
-        element={isAuthenticated ? <Home /> : <Navigate to="/" replace />}
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
       />
     </Routes>
   );
