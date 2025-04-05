@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 import { User } from "@/types/auth";
 import { loginWithGoogle } from "@/services/apiClient";
+import SplashScreen from "./SplashScreen";
 
 const GoogleLoginButton = () => {
   const { login } = useAuth();
@@ -39,7 +40,7 @@ const GoogleLoginButton = () => {
         onSuccess={handleSuccess}
         onError={() => console.error("❌ Login Failed")}
       />
-      {loading && <p>🔄 Logging in...</p>}
+      {loading && <SplashScreen />}
     </>
   );
 };

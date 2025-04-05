@@ -16,6 +16,63 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AppSnackBar, {
   AppSnackBarSeverity,
 } from "@/components/common/AppSnackBar";
+import AppRadioGroup from "@/components/common/AppRadioGroup";
+
+const RadioGroupDemo = () => {
+  const [fruit, setFruit] = useState("Banana");
+  const [plan, setPlan] = useState("pro");
+
+  const mainContent = [
+    {
+      component: PageSubheader,
+      props: { children: "Radio Group Demo" },
+    },
+    { component: Divider },
+    {
+      component: Typography,
+      props: {
+        variant: "subtitle2",
+        children: "Choose your favorite fruit:",
+      },
+    },
+    {
+      component: AppRadioGroup,
+      props: {
+        label: "Fruits",
+        name: "fruits",
+        value: fruit,
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          setFruit(e.target.value),
+        options: ["Apple", "Banana", "Mango"],
+        row: true,
+      },
+    },
+    {
+      component: Typography,
+      props: {
+        variant: "subtitle2",
+        children: "Choose your plan:",
+      },
+    },
+    {
+      component: AppRadioGroup,
+      props: {
+        label: "Plan",
+        name: "plan",
+        value: plan,
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          setPlan(e.target.value),
+        options: [
+          { label: "Free Plan", value: "free" },
+          { label: "Pro Plan", value: "pro" },
+          { label: "Enterprise Plan", value: "enterprise" },
+        ],
+      },
+    },
+  ];
+
+  return <GridContainer components={mainContent} spacing={2} />;
+};
 
 const SnackBarDemo = () => {
   const [snack, setSnack] = useState({
@@ -300,6 +357,19 @@ const ComponentList = () => {
         components: [
           {
             component: SnackBarDemo,
+            props: {},
+            size: 12,
+          },
+        ],
+      },
+    },
+    {
+      component: GridContainer,
+      props: {
+        spacing: 2,
+        components: [
+          {
+            component: RadioGroupDemo,
             props: {},
             size: 12,
           },

@@ -5,15 +5,21 @@ import useAuth from "@/hooks/useAuth";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import Profile from "./pages/Profile";
 import ComponentList from "./pages/ComponentList";
+import SplashScreen from "./components/common/SplashScreen";
 
 const AppRoutes = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return <SplashScreen />;
+  }
+
   return (
     <Routes>
-      <Route
-        path="/"
-        element={isAuthenticated ? <Navigate to="/home" replace /> : <Login />}
-      />
+      {/* Explicit login route */}
+      <Route path="/login" element={<Login />} />
+
+      {/* Protected routes */}
       <Route
         path="/home"
         element={
@@ -36,6 +42,28 @@ const AppRoutes = () => {
           <ProtectedRoute>
             <ComponentList />
           </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/"
+        element={
+          isAuthenticated ? (
+            <Navigate to="/home" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      <Route
+        path="*"
+        element={
+          isAuthenticated ? (
+            <Navigate to="/home" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
     </Routes>

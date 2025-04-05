@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { ReactNode } from "react";
 import useAuth from "@/hooks/useAuth";
+import SplashScreen from "./SplashScreen";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -11,7 +12,11 @@ const ProtectedRoute = ({
   children,
   redirectTo = "/",
 }: ProtectedRouteProps) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return <SplashScreen />;
+  }
 
   return isAuthenticated ? children : <Navigate to={redirectTo} replace />;
 };

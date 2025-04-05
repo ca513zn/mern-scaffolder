@@ -10,15 +10,16 @@ type Props = {
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const checkAuthStatus = useCallback(async () => {
     try {
-      setLoading(true);
       const res = await refreshToken();
-      setIsAuthenticated(!!res.data.user);
       if (res.data.user) {
         setUser(res.data.user);
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
       }
     } catch {
       setIsAuthenticated(false);
@@ -31,25 +32,18 @@ const AuthProvider = ({ children }: Props) => {
     checkAuthStatus();
   }, [checkAuthStatus]);
 
-  const login = (userData: User) => {
-    setIsAuthenticated(true);
-    setUser(userData);
-  };
-
-  const logout = async () => {
-    try {
-      await logoutUser();
-      setIsAuthenticated(false);
-    } catch (error) {
-      console.error("❌ Logout failed:", error);
-    }
-  };
-
   const contextValue: AuthContextType = {
     isAuthenticated,
     user,
-    login,
-    logout,
+    login: (userData: User) => {
+      setIsAuthenticated(true);
+      setUser(userData);
+    },
+    logout: async () => {
+      await logoutUser();
+      setIsAuthenticated(false);
+      setUser(null);
+    },
     loading,
   };
 
