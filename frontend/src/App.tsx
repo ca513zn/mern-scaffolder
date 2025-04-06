@@ -1,5 +1,4 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import AuthProvider from "./context/AuthProvider";
 import AppRoutes from "./AppRoutes";
 import AppHeader from "@/components/layout/AppHeader";
 import { Toolbar } from "@mui/material";
@@ -20,12 +19,10 @@ function AnalyticsTracker() {
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <AnalyticsTracker />
-        <AppHeader />
-        <Toolbar />
-        <AppRoutes />
-      </AuthProvider>
+      <AnalyticsTracker />
+      <AppHeader />
+      <Toolbar />
+      <AppRoutes />
     </Router>
   );
 }
